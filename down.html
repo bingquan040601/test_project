@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>节流</title>
+</head>
+<style>
+    body {
+        height: 2000px;
+    }
+</style>
+<body>
+      <input placeholder="请输入" class="test"/>
+      <button  onclick="down()" >
+        点我下载
+      </button>
+
+</body>
+<script>
+  function imgToBase64(imgUrl, callback) {
+    fetch(imgUrl).then(res => res.blob())
+      .then(blob => {
+        const reader = new FileReader();
+        reader.onloadend = ()=> {
+          callback(reader.result);
+        }
+        reader.readAsDataURL(blob)
+      })
+  }
+  function down(){
+    let fileUrl = 'https://img0.baidu.com/it/u=1604010673,2427861166&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=889'
+    imgToBase64(fileUrl, (blob)=> {
+      let link = document.createElement('a');
+      link.setAttribute('href', blob);
+      link.download = "测试";
+      link.click();
+    })
+  }
+</script>
+</html>
